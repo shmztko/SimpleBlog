@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:msg="http://java.sun.com/jsf/composite/components/message"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<ui:composition template="../application/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+
+				<msg:messages  styleClass="alert alert-danger"/>
+
+				<ui:include src="_form.xhtml" />
+
+				<div class="form-group">
+					<h:commandButton type="submit" action="#{blogController.update}" value="#{i18n['button.update']}"/>
+				</div>
+			</h:form>
+
+			<hr/>
+
+			<h:form>
+				<h:commandButton type="submit" action="/index.xhtml" value="#{i18n['button.back']}"/>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

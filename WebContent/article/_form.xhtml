@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+>
+
+<ui:composition>
+		<label for="title">記事タイトル</label>
+		<br/>
+		<h:inputText
+			id="title"
+			value="#{articleController.article.title}"
+		/>
+
+		<br/>
+
+        <label for="content">内容</label>
+        <br/>
+        <h:inputTextarea
+            id="content"
+            cols="100" rows="25"
+            value="#{articleController.article.content}"
+        />
+</ui:composition>
+</html>

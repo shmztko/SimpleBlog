@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+>
+<body>
+	<composite:interface>
+		<composite:attribute name="styleClass"/>
+	</composite:interface>
+
+    <composite:implementation>
+    	<h:panelGroup rendered="#{fn:length(facesContext.messageList) > 0}">
+			<div class="#{cc.attrs.styleClass}">
+				<a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+				<ul>
+					<ui:repeat var="message" value="#{facesContext.messageList}">
+						<li>#{message.summary}</li>
+					</ui:repeat>
+				</ul>
+			</div>
+		</h:panelGroup>
+	</composite:implementation>
+</body>
+</html>

@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+/**
+ * アプリケーション固有CSS
+ */
+
+/* 固定フッター用CSS */
+html,body {
+	height: 100%;
+}
+
+body {
+	padding-top: 60px;
+}
+
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -60px;
+}
+
+#push, #footer {
+	height: 60px;
+}
+
+
+/* ロゴ用 */
+.logo {
+	font-size: 16px;
+	font-weight: bold;
+}

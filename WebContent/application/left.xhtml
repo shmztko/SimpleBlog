@@ -1,0 +1,23 @@
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+</h:head>
+<h:body>
+    <h:form>
+        <h:commandButton action="#{blogController.create}"  value="#{i18n['button.create']}"/>
+    </h:form>
+    <hr/>
+	<h:form>
+		<ul>
+            <ui:repeat value="#{blogController.allBlogs}" var="blog">
+                <li>
+                    <h:commandLink action="#{articleController.list(blog)}" value="#{blog.name}"/>
+                </li>
+            </ui:repeat>
+		</ul>
+	</h:form>
+</h:body>
+</html>

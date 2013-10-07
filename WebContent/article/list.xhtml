@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<ui:composition template="../application/template.xhtml">
+		<ui:define name="content">
+            <h:outputText value="#{articleController.blog.name}"/> の記事一覧
+
+			<h:form>
+				<h:commandButton action="#{articleController.create}"  value="#{i18n['button.create']}"/>
+			</h:form>
+
+            <hr/>
+
+			<h:form>
+			<table class="table">
+				<tr>
+                    <th>投稿日</th>
+					<th>タイトル</th>
+					<th></th>
+				</tr>
+				<ui:repeat value="#{articleController.articles}" var="article">
+					<tr>
+                        <td>
+                            <h:outputText value="#{article.postedAt}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </td>
+						<td>
+						    <h:commandLink action="#{articleController.show(article)}" value="#{article.title}"/>
+						</td>
+						<td>
+                            <h:commandLink action="#{articleController.delete(article)}"
+                                onclick="return confirm('よろしいですか？')"
+                                value="削除"
+                            />
+						</td>
+					</tr>
+				</ui:repeat>
+			</table>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

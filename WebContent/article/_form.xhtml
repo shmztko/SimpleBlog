@@ -3,9 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 >
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
 <ui:composition>
-		<label for="title">記事タイトル</label>
+		<label for="title">タイトル</label>
 		<br/>
 		<h:inputText
 			id="title"
@@ -22,4 +25,5 @@
             value="#{articleController.article.content}"
         />
 </ui:composition>
+</body>
 </html>

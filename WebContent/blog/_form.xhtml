@@ -3,12 +3,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 >
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
 <ui:composition>
-		<label for="name">ブログ名</label>
+		<label for="name">名前</label>
 		<h:inputText
 			id="name"
 			value="#{blogController.blog.name}"
 		/>
 </ui:composition>
+</body>
 </html>

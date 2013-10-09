@@ -1,14 +1,15 @@
 package jp.co.itfrontier.simpleblog.controller;
 
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.ejb.embeddable.EJBContainer;
-import javax.inject.Inject;
+import jp.co.itfrontier.simpleblog.model.Article;
+import jp.co.itfrontier.simpleblog.model.Blog;
+import jp.co.itfrontier.simpleblog.service.BlogService;
+import mockit.Deencapsulation;
+import mockit.Expectations;
+import mockit.Mocked;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -17,68 +18,155 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class ArticleControllerTest {
 
-	@Inject
-	private ArticleController testTarget;
+	@Mocked
+	private BlogService blogService;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+	private Blog blog = new Blog();
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-		Properties p = new Properties();
-        p.put("movieDatabase", "new://Resource?type=DataSource");
-        p.put("movieDatabase.JdbcDriver", "org.hsqldb.jdbcDriver");
-        p.put("movieDatabase.JdbcUrl", "jdbc:hsqldb:mem:moviedb");
-		EJBContainer.createEJBContainer(p).getContext().bind("inject", this);
-	}
-
-	@After
-	public void tearDown() throws Exception {
+	@Test
+	public final void testIndex() throws Exception {
+		ArticleController controller = new ArticleController();
+		String nextView = controller.index();
+		assertThat(nextView, is("/index"));
 	}
 
 	@Test
-	public final void testIndex() {
-		assertThat(testTarget, is(not((nullValue()))));
+	public final void testIndex_BlogIsNotNull() throws Exception {
+		new Expectations() {{
+			blogService.findByKey(blog.getId()); result = blog;
+		}};
+
+		ArticleController controller = new ArticleController();
+		Deencapsulation.setField(controller, blogService);
+
+		controller.setBlog(blog);
+		String nextView = controller.index();
+
+		assertThat(nextView, is("/article/list?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testList() {
-		fail("Not yet implemented");
+		ArticleController controller = new ArticleController();
+
+		String nextView = controller.index();
+
+		assertThat(nextView, is("/index"));
+	}
+
+	@Test
+	public final void testList_BlogIsNotNull() {
+
+		new Expectations() {{
+			blogService.findByKey(blog.getId()); result = blog;
+		}};
+
+		ArticleController controller = new ArticleController();
+
+		Deencapsulation.setField(controller, blogService);
+		controller.setBlog(blog);
+
+		String nextView = controller.index();
+
+		assertThat(nextView, is("/article/list?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testCreate() {
-		fail("Not yet implemented");
+		ArticleController controller = new ArticleController();
+
+		String nextView = controller.create();
+
+		assertThat(nextView, is("/article/create?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testSave() {
-		fail("Not yet implemented");
+
+		blog.setArticles(new ArrayList<Article>());
+
+		new Expectations() {{
+			blogService.update(blog); result = blog;
+		}};
+
+		new Expectations() {{
+			blogService.findByKey(blog.getId()); result = blog;
+		}};
+
+		ArticleController controller = new ArticleController();
+		Deencapsulation.setField(controller, blogService);
+		controller.setBlog(blog);
+		controller.setArticle(new Article());
+
+		String nextView = controller.save();
+
+		assertThat(nextView, is("/article/list?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testShow() {
-		fail("Not yet implemented");
+		ArticleController controller = new ArticleController();
+
+		Article article = new Article();
+
+		String nextView = controller.show(article);
+
+		assertThat(nextView, is("/article/show?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testEdit() {
-		fail("Not yet implemented");
+		ArticleController controller = new ArticleController();
+
+		String nextView = controller.edit();
+
+		assertThat(nextView, is("/article/edit?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testUpdate() {
-		fail("Not yet implemented");
+		new Expectations() {{
+			blogService.update(blog); result = blog;
+		}};
+
+		new Expectations() {{
+			blogService.findByKey(blog.getId()); result = blog;
+		}};
+
+		ArticleController controller = new ArticleController();
+
+		blog.setArticles(new ArrayList<Article>());
+		controller.setBlog(blog);
+		Deencapsulation.setField(controller, blogService);
+
+		String nextView = controller.update();
+
+		assertThat(nextView, is("/article/list?faces-redirect=true"));
 	}
 
 	@Test
 	public final void testDelete() {
-		fail("Not yet implemented");
+		new Expectations() {{
+			blogService.update(blog); result = blog;
+		}};
+		new Expectations() {{
+			blogService.findByKey(blog.getId()); result = blog;
+		}};
+
+
+		ArticleController controller = new ArticleController();
+
+		Article article = new Article();
+
+		List<Article> articles = new ArrayList<Article>();
+		articles.add(article);
+		blog.setArticles(articles);
+		controller.setBlog(blog);
+		Deencapsulation.setField(controller, blogService);
+
+		String nextView = controller.delete(article);
+
+		assertThat(nextView, is("/article/list?faces-redirect=true"));
 	}
 
 }

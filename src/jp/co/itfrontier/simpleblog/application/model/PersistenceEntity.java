@@ -19,9 +19,9 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public abstract class PersistenceEntity {
 
+
 	//--------------------
 	// Entity Fields.
-
 	/** 作成日 */
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
